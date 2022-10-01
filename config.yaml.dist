@@ -1,0 +1,10 @@
+broker:
+  client_id: mediacenter_symfonisk
+  host: "192.168.1.1"
+  port: 1883
+  username: iot
+  password: ""
+  topic: "zigbee2mqtt/volume_musique"
+
+delta_percentage: .01
+delta_duration: 50
