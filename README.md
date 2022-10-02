@@ -39,6 +39,8 @@ delay and delta_percentage will be removed from the server-side as they will be 
 
 Other thing to do is enable the use of passwordless broker as I think most people don't bother with it since they are running it locally.
 
+Also this should register as an Home Assistant entity exposing each sink / source volumes
+
 ## License
 ```
            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE

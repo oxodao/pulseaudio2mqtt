@@ -10,6 +10,13 @@ import (
 	"github.com/oxodao/mqtt2pulseaudio/config"
 )
 
+var (
+	AUTHOR        = "Oxodao"
+	VERSION       = "DEV"
+	COMMIT        = "XXXXXXXX"
+	SOFTWARE_NAME = "mqtt2pulseaudio"
+)
+
 func run() error {
 	err := config.Load()
 	if err != nil {
@@ -23,6 +30,11 @@ func main() {
 	if err := run(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+
+	if len(os.Args) > 1 && os.Args[1] == "--version" {
+		fmt.Printf("%v %v (Commit %v) by %v\n", SOFTWARE_NAME, VERSION, COMMIT, AUTHOR)
+		os.Exit(0)
 	}
 
 	client := mqtt.NewClient(config.GET.GetClientConfig())
