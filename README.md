@@ -1,23 +1,17 @@
-# mqtt2pulseaudio
-
-Pass mosquito MQTT messages to playerctl.
-
-Tried with a [Ikea SYMFONISK remote control](https://www.ikea.com/fr/fr/p/symfonisk-telecommande-volume-blanc-60370480/) and zigbee2mqtt.
-
-Requires playerctl to be installed and mpris-based player (Spotify, web browser, ...)
+# pulseaudio2mqtt
 
 Usage:
-Download the binary release and put it in `/opt/mqtt2pulseaudio/mqtt2pulseaudio` and chmod +x it.
+Download the binary release and put it in `/opt/pulseaudio2mqtt/pa2mqtt` and chmod +x it.
 
 ```sh
-$ sudo ln -s /opt/mqtt2pulseaudio/mqtt2pulseaudio /usr/bin/mqtt2pulseaudio
+$ sudo ln -s /opt/pulseaudio2mqtt/pa2mqtt /usr/bin/pa2qtt
 ```
 
-Copy `config.yaml.dist` to `/etc/mqtt2pulseaudio.yaml` and fill the required stuff.
+Copy `config.yaml.dist` to `/etc/pulseaudio2mqtt.yaml` and fill the required stuff.
 
-Copy `contrib/mqtt2pulseaudio.service` to `/etc/systemd/user/mqtt2pulseaudio.service` (shamelessly stolen from [spotifyd](https://github.com/Spotifyd/spotifyd/blob/master/contrib/spotifyd.service))
+Copy `contrib/pa2mqtt.service` to `/etc/systemd/user/pa2mqtt.service` (shamelessly stolen from [spotifyd](https://github.com/Spotifyd/spotifyd/blob/master/contrib/spotifyd.service))
 ```sh
-$ systemctl enable --now --user mqtt2pulseaudio
+$ systemctl enable --now --user pa2mqtt
 ```
 
 ## Todo

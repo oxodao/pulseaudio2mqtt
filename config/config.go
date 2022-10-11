@@ -8,7 +8,6 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/noisetorch/pulseaudio"
 	"gopkg.in/yaml.v2"
 )
 
@@ -21,14 +20,21 @@ type Config struct {
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 		ClientID string `yaml:"client_id"`
-		Topic    string `yaml:"topic"`
 	} `yaml:"broker"`
 
-	PlayerctlPath string             `yaml:"-"`
-	PAClient      *pulseaudio.Client `yaml:"-"`
+	Bridges map[string]BridgeConfig `json:"bridges"`
 
-	DeltaPercentage float32       `yaml:"delta_percentage"`
-	DeltaDuration   time.Duration `yaml:"delta_duration"`
+	ContinuousDeltas struct {
+		Delay           time.Duration `yaml:"delay"`
+		DeltaPercentage float32       `yaml:"delta_percentage"`
+	} `yaml:"continuous_delta"`
+
+	PlayerctlPath string `yaml:"-"`
+}
+
+type BridgeConfig struct {
+	Enabled  bool
+	Settings map[string]interface{}
 }
 
 func (c *Config) GetClientConfig() *mqtt.ClientOptions {
@@ -51,6 +57,17 @@ func (c *Config) GetClientConfig() *mqtt.ClientOptions {
 	}
 
 	return mqttConfig
+}
+
+func (c *Config) GetBridgeConfig(name string) BridgeConfig {
+	if val, ok := c.Bridges[name]; ok {
+		return val
+	}
+
+	return BridgeConfig{
+		Enabled:  false,
+		Settings: map[string]interface{}{},
+	}
 }
 
 func getConfigFile() string {
@@ -85,13 +102,6 @@ func Load() error {
 	}
 
 	cfg.PlayerctlPath = pctl
-
-	client, err := pulseaudio.NewClient()
-	if err != nil {
-		return err
-	}
-
-	cfg.PAClient = client
 
 	GET = cfg
 	return nil

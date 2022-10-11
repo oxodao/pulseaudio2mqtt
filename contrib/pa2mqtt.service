@@ -1,13 +1,13 @@
 [Unit]
-Description=Simple MQTT client that play/pause and change the volume from a payload
-Documentation=https://github.com/oxodao/mqtt2pulseaudio
+Description=Bridge pulseaudio to MQTT for Home Assistant & NodeRed usage
+Documentation=https://github.com/oxodao/pulseaudio2mqtt
 Wants=sound.target
 After=sound.target
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/mqtt2pulseaudio
+ExecStart=/usr/bin/pa2mqtt
 Restart=always
 RestartSec=12
 

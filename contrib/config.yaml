@@ -1,0 +1,13 @@
+broker:
+  client_id: laptop # Will have the client_id of pa2mqtt_laptop and will process messages on pa2mqtt/laptop/XXXXXX
+  host: "localhost"
+  username: ""
+  password: ""
+  port: 1883
+
+bridges:
+  home_assistant: true
+
+continuous_delta:
+  delay: 10
+  delta_percentage: 0.1
